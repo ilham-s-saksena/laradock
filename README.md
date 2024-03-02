@@ -29,4 +29,5 @@ Running the Laravel App with Docker
     docker compose up -d
     ```
 
-5. Open Your Browser and go to <a href="localhost:8088">localhost:8088</a>
+5. Open The Browser 
+   go to <a href="localhost:8088">localhost:8088</a>
