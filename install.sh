@@ -13,6 +13,7 @@ docker run --rm \
 
     echo "$(id -g)"
     echo "----------------------------"
+    chmod -R 777 storage
 
     # Step 5: Generate application key
     php artisan key:generate
