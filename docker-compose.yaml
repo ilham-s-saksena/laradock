@@ -1,12 +1,12 @@
 version: '3.9'
-
+name: laradock-task
 networks:
   laravel:
 
 services:
   nginx:
     image: nginx:stable-alpine
-    container_name: laradock-task-nginx
+    
     ports:
       - "8088:80"
     volumes:
@@ -22,7 +22,7 @@ services:
   
   mysql:
     image: mysql:latest
-    container_name: laradock-task-mysql
+    
     restart: unless-stopped
     tty: true
     ports:
@@ -42,9 +42,9 @@ services:
   php:
     image: php:8-fpm
     build:
-      context: .
+      context: src/
       dockerfile: Dockerfile
-    container_name: laradock-task-php
+    
     volumes:
       - ./src:/var/www/html
     ports:
