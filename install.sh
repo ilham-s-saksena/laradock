@@ -1,3 +1,4 @@
+cp src/.env.example src/.env
 docker run --rm \
   -v "$(dirname $(readlink -f $0))/src:/var/www/html" \
   -w /var/www/html \
@@ -12,12 +13,6 @@ docker run --rm \
 
     echo "$(id -g)"
     echo "----------------------------"
-
-
-    # Step 4: Change permissions
-    chmod +w storage/logs/
-
-    ls -l storage/logs
 
     # Step 5: Generate application key
     php artisan key:generate
