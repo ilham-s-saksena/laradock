@@ -30,4 +30,4 @@ Running the Laravel App with Docker
     ```
 
 5. Open The Browser 
-   <p align="center"><a href="https://pilihjurusan.id" target="_blank"><img src="https://pilihjurusan.id/img/logo/logo.png" width="400" alt="Pilih Jurusan Logo"></a></p>
+   <p align="center">Go To <a href="http://localhost:8088" target="_blank">localhost:8088</a></p>
