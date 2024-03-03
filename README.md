@@ -10,7 +10,7 @@ Running the Laravel App with Docker
 
 1. Clone the repository to your local machine:
    ```bash
-    git clone git clone https://github.com/ilham-s-saksena/laradock.git
+   git clone https://github.com/ilham-s-saksena/laradock.git
     ```
 
 2. Change directory to api: 
