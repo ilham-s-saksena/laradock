@@ -1,12 +1,13 @@
 version: '3.9'
 name: laradock-task
+
 networks:
   laravel:
+    driver: bridge
 
 services:
   nginx:
     image: nginx:stable-alpine
-    
     ports:
       - "8088:80"
     volumes:
@@ -22,11 +23,9 @@ services:
   
   mysql:
     image: mysql:latest
-    
-    restart: unless-stopped
-    tty: true
+    restart: always
     ports:
-      - "4036:3306"
+      - "3306:3306"
     volumes:
       - ./mysql:/var/lib/mysql
     environment:
@@ -34,8 +33,6 @@ services:
       MYSQL_USER: task
       MYSQL_PASSWORD: task
       MYSQL_ROOT_PASSWORD: task
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
     networks:
       - laravel
     
@@ -44,7 +41,6 @@ services:
     build:
       context: src/
       dockerfile: Dockerfile
-    
     volumes:
       - ./src:/var/www/html
     ports:
