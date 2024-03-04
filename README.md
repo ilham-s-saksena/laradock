@@ -13,7 +13,7 @@ Running the Laravel App with Docker
    git clone https://github.com/ilham-s-saksena/laradock.git
     ```
 
-2. Change directory to api: 
+2. Change directory to laradock: 
     ```bash
     cd laradock
     ```
@@ -26,7 +26,7 @@ Running the Laravel App with Docker
 4. Start the docker compose service
     
     ```bash
-    docker compose up -d
+    docker compose up --build -d
     ```
 
 5. Open The Browser 
