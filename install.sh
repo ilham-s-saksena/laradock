@@ -10,7 +10,6 @@ echo "--------------------------------"
 echo "--Start Instaling Dependencies--"
 echo "--------------------------------"
 
-
 docker run --rm \
   -v "$(dirname $(readlink -f $0))/src:/var/www/html" \
   -w /var/www/html \
@@ -18,6 +17,8 @@ docker run --rm \
   bash -c '
     composer install
 
+    composer require laravel/sanctum
+    
     php artisan env:decrypt --key=6UVsEgGVK36XN82KKeyLFMhvosbZN1aF
 
     chmod -R 777 storage
