@@ -33,6 +33,14 @@ class AuthService
     }   
     public function login($data){
 
+        $emailCheck = User::where("email", $data["email"])->first();
+
+        if (!$emailCheck) {
+            return response()->json([
+                'message' => 'email not found'
+            ], 404);
+        }
+
         if (Auth::attempt($data)) {
             $user = Auth::user();
             $token = $user->createToken('AuthToken')->plainTextToken;
@@ -46,5 +54,13 @@ class AuthService
                 'message' => 'invalid, wrong email or password'
             ], 401);
         }
+    }
+
+    public function getAllUsers(){
+        $users = User::all();
+        return response()->json([
+            'message' => 'ok',
+            'users'=> $users
+        ]);
     }
 }

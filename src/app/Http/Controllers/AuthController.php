@@ -33,15 +33,7 @@ class AuthController extends Controller
 
         $reg = $this->authService->register($request->all());
 
-        if ($reg) {
-            return response()->json([
-                'message' => 'User registered successfully'
-            ], 201);
-        } else {
-            return response()->json([
-                'message' => 'Failed to register user'
-            ], 500);
-        }
+        return $reg;
     }
 
     public function login(Request $request)
@@ -49,5 +41,16 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         $log = $this->authService->login($credentials);
         return $log;
+    }
+
+    public function getAllUsers(){
+        $getUsers = $this->authService->getAllUsers();
+        return $getUsers;
+    }
+
+    public function getUserData(Request $request) {
+        return response()->json([
+            'user' => $request->user()
+        ]);
     }
 }
