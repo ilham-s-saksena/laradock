@@ -10,29 +10,23 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase; 
 
-    public function test_failed_login(): void
+    public function setUp(): void
     {
-        $response = $this->postJson('/api/login', [
-            'email' => 'test@example.com',
-            'password' => 'password',
-        ]);
+        parent::setUp();
 
-        $response->assertStatus(401)
-            ->assertJson([
-                'message' => 'invalid, wrong email or password',
-            ]);
+        
+        User::factory()->create([
+            'name' => 'John Doe',
+            'email' => 'exist@email.com',
+            'password' => bcrypt('password'),
+        ]);
     }
 
     public function test_success_login(): void
     {
-        User::factory()->create([
-            'name' => 'John Doe',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-        ]);
 
         $response = $this->postJson('/api/login', [
-            'email' => 'test@example.com',
+            'email' => 'exist@email.com',
             'password' => 'password',
         ]);
 
@@ -42,6 +36,33 @@ class LoginTest extends TestCase
             ])
             ->assertJsonStructure([
                 'token',
+            ]);
+    }
+
+    public function test_failed_login_email_not_exist(): void
+    {
+
+        $response = $this->postJson('/api/login', [
+            'email' => 'notexist@email.com',
+            'password' => 'password',
+        ]);
+
+        $response->assertStatus(404)
+            ->assertJson([
+                'message' => 'email not found',
+            ]);
+    }
+
+    public function test_failed_login_wrong_password(): void
+    {
+        $response = $this->postJson('/api/login', [
+            'email' => 'exist@email.com',
+            'password' => 'pass',
+        ]);
+
+        $response->assertStatus(401)
+            ->assertJson([
+                'message' => 'invalid, wrong email or password',
             ]);
     }
 }

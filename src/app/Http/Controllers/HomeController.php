@@ -20,18 +20,18 @@ class HomeController extends Controller
         $content = $this->homeService->getAllContent();
         $total_content = $content->count();
 
-        if ($total_content == 0) {
-            return response()->json([
-                "message" => "ok",
-                "content" => "Content is Empty",
-                "total_content" => $content->count(),
-            ], 404);
-        } else {   
+        if($total_content > 0) {   
             return response()->json([
                 "message" => "ok",
                 "content" => $content,
                 "total_content" => $content->count(),
             ], 200);
+        } else {
+            return response()->json([
+                "message" => "no content",
+                "content" => "Content is Empty",
+                "total_content" => $content->count(),
+            ], 402);
         }
     }
 
@@ -114,7 +114,7 @@ class HomeController extends Controller
             ], 201);
         } else {
             return response()->json([
-                "message" => "err"
+                "message" => "err, Content id not Found"
             ], 404);
         }
     }
